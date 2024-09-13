@@ -12,6 +12,7 @@ type Config struct {
 	} `yaml:"aws"`
 	OpenAI struct {
 		APIKey string `yaml:"api_key"`
+		Url    string `yaml:"url"`
 	} `yaml:"openai"`
 }
 
