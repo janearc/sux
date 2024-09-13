@@ -1,13 +1,11 @@
 package sux
 
-type State struct {
-	Defined bool
+func NewSux() *Sux {
+	return &Sux{}
 }
 
-func NewState() *State {
-	return &State{Defined: true}
-}
+// Sux methods
 
-func (s *State) IsDefined() bool {
-	return s.Defined
-}
+// MarshalData
+// Query
+// StorageQuery

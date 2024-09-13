@@ -5,12 +5,6 @@ import (
 	"net/http"
 )
 
-type Remote struct {
-	// this is just a katamari of stuff we need to talk to sr. altman's finest products
-	httpClient *http.Client
-	cfg        *config.Config
-}
-
 func NewRemote(cfg *config.Config) (*Remote, error) {
 	// create a new remote
 	remote := &Remote{
