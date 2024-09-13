@@ -11,7 +11,7 @@ type Config struct {
 		Region string `yaml:"region"`
 	} `yaml:"aws"`
 	OpenAI struct {
-		APIKey string
+		APIKey string `yaml:"api_key"`
 	} `yaml:"openai"`
 }
 

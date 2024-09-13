@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func testNewState(t *testing.T) {
+func TestNewState(t *testing.T) {
 	state := sux.NewState()
 	assert.NotNil(t, state)
 	assert.True(t, state.IsDefined())
