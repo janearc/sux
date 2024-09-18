@@ -17,17 +17,23 @@ func NewSux(cfn string, vfn string, sfn string) *Sux {
 		logrus.Infof("SUX_ROOT: %s", SUX_ROOT)
 	}
 
-	cfName := filepath.Join(SUX_ROOT, "config/config.yml")
-	vfName := filepath.Join(SUX_ROOT, "config/version.yml")
-	scName := filepath.Join(SUX_ROOT, "config/secrets.yml")
+	if cfn == "" {
+		cfn = filepath.Join(SUX_ROOT, "config/config.yml")
+	}
+	if vfn == "" {
+		vfn = filepath.Join(SUX_ROOT, "config/version.yml")
+	}
+	if sfn == "" {
+		sfn = filepath.Join(SUX_ROOT, "config/secrets.yml")
+	}
 
-	config, err := config.LoadConfig(cfName, vfName, scName)
+	c, err := config.LoadConfig(cfn, vfn, sfn)
 
 	if err != nil {
 		logrus.WithError(err).Fatalf("Failed to load config: %v", err)
 	}
 
-	if config.AWS.Region == "" {
+	if c.AWS.Region == "" {
 		log.Fatalf("AWS region not defined")
 	}
 
@@ -46,7 +52,7 @@ func NewSux(cfn string, vfn string, sfn string) *Sux {
 	return &Sux{
 		sid:    *session,
 		Log:    logrus.New(),
-		config: config,
+		config: c,
 		// no remote yet
 	}
 }

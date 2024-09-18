@@ -42,7 +42,12 @@ func LoadConfig(configFileName string, versionFileName string, secretsFileName s
 		logrus.WithError(err).Fatalf("Failed to open config file %s", configFileName)
 		return nil, err
 	}
-	defer file.Close()
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+			logrus.WithError(err).Fatalf("Failed to close config file %s", configFileName)
+		}
+	}(file)
 
 	var config Config
 
@@ -63,7 +68,12 @@ func LoadConfig(configFileName string, versionFileName string, secretsFileName s
 		logrus.WithError(err).Fatalf("Failed to open version file %s", versionFileName)
 		return nil, err
 	}
-	defer vf.Close()
+	defer func(vf *os.File) {
+		err := vf.Close()
+		if err != nil {
+			logrus.WithError(err).Fatalf("Failed to close version file %s", versionFileName)
+		}
+	}(vf)
 
 	// Decode the version file
 	vfDecoder := yaml.NewDecoder(vf)
@@ -78,12 +88,17 @@ func LoadConfig(configFileName string, versionFileName string, secretsFileName s
 		secretsFileName = filepath.Join(root, "config/secrets.yml")
 	}
 
-	sf, err := os.Open(configFileName)
+	sf, err := os.Open(secretsFileName)
 	if err != nil {
 		logrus.WithError(err).Fatalf("Failed to open secrets file %s", secretsFileName)
 		return nil, err
 	}
-	defer sf.Close()
+	defer func(sf *os.File) {
+		err := sf.Close()
+		if err != nil {
+			logrus.WithError(err).Fatalf("Failed to close secrets file %s", secretsFileName)
+		}
+	}(sf)
 
 	secDecoder := yaml.NewDecoder(sf)
 	if err := secDecoder.Decode(&config); err != nil {
