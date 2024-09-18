@@ -2,6 +2,7 @@ package sux
 
 import (
 	"github.com/google/uuid"
+	"github.com/janearc/sux/backend"
 	"github.com/janearc/sux/config"
 	"github.com/sirupsen/logrus"
 	"net/http"
@@ -10,7 +11,7 @@ import (
 
 type Sux struct {
 	sid     Session
-	remotes map[string]*Remote
+	remotes map[string]*backend.Transport
 	Log     *logrus.Logger
 	config  *config.Config
 }

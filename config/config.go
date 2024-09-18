@@ -18,7 +18,7 @@ type Config struct {
 	Version struct {
 		BuildDate string `yaml:"build_date"`
 		Build     string `yaml:"build"`
-		branch    string `yaml:"branch"`
+		Branch    string `yaml:"branch"`
 	}
 }
 

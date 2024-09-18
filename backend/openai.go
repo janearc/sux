@@ -17,6 +17,15 @@ type Transport struct {
 	authenticated bool
 }
 
+// NewOpenAITransport creates a new OpenAI transport object.
+func NewOpenAITransport(config *config.Config) *Transport {
+	return &Transport{
+		url:        config.OpenAI.Url,
+		httpClient: &http.Client{},
+		config:     config,
+	}
+}
+
 // AuthGood sets the authenticated flag to true.
 func (t *Transport) AuthGood() {
 	if t.authenticated == true {

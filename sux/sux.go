@@ -1,6 +1,7 @@
 package sux
 
 import (
+	"github.com/janearc/sux/backend"
 	"github.com/janearc/sux/config"
 	"github.com/sirupsen/logrus"
 	"log"
@@ -50,17 +51,39 @@ func NewSux(cfn string, vfn string, sfn string) *Sux {
 		logrus.WithError(err).Fatalf("Failed to create session: %v", err)
 	}
 	return &Sux{
-		sid:    *session,
-		Log:    logrus.New(),
-		config: c,
-		// no remote yet
+		sid:     *session,
+		Log:     logrus.New(),
+		config:  c,
+		remotes: make(map[string]*backend.Transport),
 	}
 }
 
 // Sux methods
 
+// GetVersionBuild accessor
 func (s *Sux) GetVersionBuild() string {
 	return s.config.Version.Build
+}
+
+// GetVersionBuildDate accessor
+func (s *Sux) GetVersionBuildDate() string {
+	return s.config.Version.BuildDate
+}
+
+// GetVersionBranch accessor
+func (s *Sux) GetVersionBranch() string {
+	return s.config.Version.Branch
+}
+
+// GetConfig accessor
+func (s *Sux) GetConfig() *config.Config {
+	return s.config
+}
+
+// AddRemote adds a backend to the service
+func (s *Sux) AddBackend(name string, r *backend.Transport) {
+	s.Log.Infof("Adding remote %s", name)
+	s.remotes[name] = r
 }
 
 // MarshalData
