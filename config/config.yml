@@ -2,5 +2,4 @@ aws:
   region: "us-west-2"
 
 openai:
-  api_key: "secrets"
   url: "https://api.openai.com/v1/chat/completions"

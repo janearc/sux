@@ -17,9 +17,10 @@ func TestLoadConfig(t *testing.T) {
 
 	configFileName := filepath.Join(root, "config/config.yml")
 	versionFileName := filepath.Join(root, "config/version.yml")
+	secretsFileName := filepath.Join(root, "config/secrets.yml")
 
 	// fire up that constructor and read some yaml
-	cfg, err := config.LoadConfig(configFileName, versionFileName)
+	cfg, err := config.LoadConfig(configFileName, versionFileName, secretsFileName)
 
 	assert.Nil(t, err)
 	assert.NotNil(t, cfg)

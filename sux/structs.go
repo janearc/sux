@@ -3,13 +3,16 @@ package sux
 import (
 	"github.com/google/uuid"
 	"github.com/janearc/sux/config"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"time"
 )
 
 type Sux struct {
-	sid    Session
-	remote Remote
+	sid     Session
+	remotes map[string]*Remote
+	Log     *logrus.Logger
+	config  *config.Config
 }
 
 type State struct {
