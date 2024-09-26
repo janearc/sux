@@ -13,7 +13,8 @@ func NewSux(cfn string, vfn string, sfn string) *Sux {
 	SUX_ROOT := os.Getenv("SUX_ROOT")
 
 	if SUX_ROOT == "" {
-		logrus.Fatalf("SUX_ROOT not defined")
+		logrus.Warn("SUX_ROOT not defined")
+		SUX_ROOT = "/app"
 	} else {
 		logrus.Infof("SUX_ROOT: %s", SUX_ROOT)
 	}
